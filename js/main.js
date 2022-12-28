@@ -1,4 +1,5 @@
 import ipads from '../data/ipads.js'
+import navigations from '../data/navigations.js';
 
 const basketFromEl = document.querySelector("header .basket-from");
 const basketEl = basketFromEl.querySelector(".basket");
@@ -97,6 +98,11 @@ ipads.forEach(ipad => {
   const itemEl = document.createElement('div')
   itemEl.classList.add('item')
 
+  let colorList = ''
+  ipad.colors.forEach(color => {
+    colorList += `<li style="background-color: ${color};"></li>`
+  })
+
   itemEl.innerHTML = `
     <div class="thumbnail">
       <img src="${ipad.thumbnail}" alt="${ipad.name}" />
@@ -113,3 +119,31 @@ ipads.forEach(ipad => {
 
   itemsEl.append(itemEl)
 })
+
+const navigationsEl = document.querySelector('footer .navigations')
+navigations.forEach(nav => {
+  const mapEl = document.createElement('div')
+  mapEl.classList.add('map')
+
+  let mapList = ''
+  nav.maps.forEach(map => {
+    mapList += `<li>
+      <a href="${map.url}">${map.name}</a>
+    </li>`
+  })
+
+  mapEl.innerHTML = `
+    <h3>
+      <span class="text">${nav.title}</span>
+      <span class="icon">+</span>
+    </h3>
+    <ul>
+      ${mapList}
+    </ul>
+  `
+
+  navigationsEl.append(mapEl)
+})
+
+const thisYearEl = document.querySelector('.this-year')
+thisYearEl.textContent = new Date().getFullYear()
